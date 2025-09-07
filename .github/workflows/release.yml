@@ -15,7 +15,7 @@ jobs:
     permissions:
       contents: write # Required for GitHub's generate-release-note API (notes are only displayed in job summary, not written to any file)
       pull-requests: read
-    uses: actionutils/trusted-tag-releaser/.github/workflows/release-check.yml@c6bfc29a4d6a424c2ce64951b2a5c7fd223a1bf1
+    uses: actionutils/trusted-tag-releaser/.github/workflows/release-check.yml@main
 
   # Environment protection job
   release-approval:
@@ -48,6 +48,6 @@ jobs:
       pull-requests: write # Required for bumpr commenting
       actions: read      # Required for SLSA generator
       attestations: write # Required for build provenance attestation
-    uses: actionutils/trusted-tag-releaser/.github/workflows/trusted-release-workflow.yml@c6bfc29a4d6a424c2ce64951b2a5c7fd223a1bf1
+    uses: actionutils/trusted-tag-releaser/.github/workflows/trusted-release-workflow.yml@main
     secrets:
       github-token: ${{ secrets.GITHUB_TOKEN }}
