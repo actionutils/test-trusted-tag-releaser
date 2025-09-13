@@ -17,27 +17,9 @@ jobs:
       pull-requests: read
     uses: actionutils/trusted-tag-releaser/.github/workflows/release-check.yml@main
 
-  # Environment protection job
-  release-approval:
-    needs: [release-check]
-    if: github.event.action != 'labeled' && needs.release-check.outputs.skip != 'true'
-    runs-on: ubuntu-latest
-    environment: release
-    concurrency:
-      group: "release-approval"
-      cancel-in-progress: true
-    steps:
-      - name: Harden the runner (Audit all outbound calls)
-        uses: step-security/harden-runner@6c439dc8bdf85cadbbce9ed30d1c7b959517bc49 # v2.12.2
-        with:
-          egress-policy: audit
-
-      - name: Approve release
-        run: echo "Release approved in the release environment"
-
   # Use the reusable trusted tag workflow for releases if approved
   release:
-    needs: [release-check, release-approval]
+    needs: [release-check]
     if: github.event.action != 'labeled' && needs.release-check.outputs.skip != 'true'
     concurrency:
       group: "release"
@@ -49,5 +31,7 @@ jobs:
       actions: read      # Required for SLSA generator
       attestations: write # Required for build provenance attestation
     uses: actionutils/trusted-tag-releaser/.github/workflows/trusted-release-workflow.yml@main
+    with:
+      environment: release
     secrets:
       github-token: ${{ secrets.GITHUB_TOKEN }}
