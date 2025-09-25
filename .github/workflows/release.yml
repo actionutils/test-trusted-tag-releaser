@@ -11,9 +11,6 @@ permissions:
 jobs:
   # Use the reusable trusted tag workflow for releases if approved
   release:
-    concurrency:
-      group: "release"
-      cancel-in-progress: false
     permissions:
       id-token: write    # Required for SLSA provenance
       contents: write    # Required for release and tag creation
