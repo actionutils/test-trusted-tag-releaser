@@ -23,5 +23,6 @@ jobs:
     uses: actionutils/trusted-tag-releaser/.github/workflows/trusted-release-workflow.yml@main
     with:
       environment: release
+      semver-tags-environment: release-semver-tags
     secrets:
       github-token: ${{ secrets.GITHUB_TOKEN }}
