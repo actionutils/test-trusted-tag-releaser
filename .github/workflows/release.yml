@@ -20,7 +20,7 @@ jobs:
       pull-requests: write # Required for bumpr commenting
       actions: read      # Required for SLSA generator
       attestations: write # Required for build provenance attestation
-    uses: actionutils/trusted-tag-releaser/.github/workflows/trusted-release-workflow.yml@main
+    uses: actionutils/trusted-tag-releaser/.github/workflows/trusted-release-workflow.yml@8ac77373deea843872ec755168d9c720a4f2798f
     with:
       environment: release
       semver-tags-environment: release-semver-tags
